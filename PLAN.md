@@ -26,3 +26,23 @@ model = {
 }
 
 ```
+
+## View Functions
+view
+  formView
+    fieldSet
+    buttonSet
+  tableView
+    tableHeader
+    mealsBody
+      mealRow
+        cell
+      totalRow
+
+## Update Functions
+click add meal
+meal description input
+calorie input
+click save (add / update a record)
+click edit
+click delete

@@ -4,8 +4,8 @@ const initModel = {
     , {description: "lunch", calories: 575}
     , {description: "snack", calories: 210}
   ]
-  , description: ""
-  , calories: 0
+  , description: "lunch"
+  , calories: 480
   // show addMeal button vs addMeal form
   , showForm: false
   // addMeal form for adding / editing meal records

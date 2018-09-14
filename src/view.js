@@ -6,6 +6,7 @@ import {
   showFormMsg
   , descriptionInputMsg
   , caloriestInputMsg
+  , saveFormMsg
 } from "./update"
 
 const {pre, div, h1, button, form, label, input} = hh(h)
@@ -50,7 +51,10 @@ function formView(_dispatch, _model) {
   const {description, calories, showForm} = _model
   if (showForm) {
     return form(
-      {className: "w-100 mv2"}
+      {className: "w-100 mv2", onsubmit: (e) => {
+        e.preventDefault()
+        , _dispatch(saveFormMsg)
+      }}
       , [
         fieldSet("DESCRIPTION", description, e => _dispatch(descriptionInputMsg(e.target.value)))
         // if calories is 0, then display empty cell

@@ -9,7 +9,13 @@ import {
   , saveFormMsg
 } from "./update"
 
-const {pre, div, h1, button, form, label, input} = hh(h)
+const {pre, div, h1, button, form, label, input, td} = hh(h)
+
+// Plan / fns to createElement:
+// cell, mealRow, headerRow, totalRow, mealBody, mealHeader, mealsTable
+function cell(_tag, _className, _data) {
+  return _tag({className: _className}, _data)
+}
 
 function buttonSet(_dispatch) {
   return div(
@@ -77,6 +83,10 @@ function view(_dispatch, _model) {
   return div({className: "mw6 center"}, [
     h1({className: "f2 pv2 bb"}, "Calorie Counter")
     , formView(_dispatch, _model)
+    , div({className: ""}, [
+      cell(td, "pa2", _model.description)
+      , cell(td, "pa2", _model.calories)
+    ])
     // creates pre-tag for pre-formated text
     , pre( JSON.stringify(_model, null, 2) )
   ])

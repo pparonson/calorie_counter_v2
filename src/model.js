@@ -8,9 +8,9 @@ const initModel = {
   // , editId: 1
   , nextId: 1
   , meals: [
-    // {description: "Breakfast", calories: 460}
-    // , {description: "lunch", calories: 575}
-    // , {description: "snack", calories: 210}
+    {description: "Breakfast", calories: 460}
+    , {description: "lunch", calories: 575}
+    , {description: "snack", calories: 210}
   ]
 }
 

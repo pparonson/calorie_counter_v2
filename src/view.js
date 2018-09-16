@@ -50,7 +50,7 @@ function totalRow(_className, _meals) {
   )(_meals)
   return tr({className: _className}, [
     cell(td, "pa2 tr bg-gray white", "TOTAL")
-    , cell(td, "pa2 bg-gray white", total)
+    , cell(td, "pa2 tr bg-gray white", total)
     , cell(td, "", "")
   ])
 }

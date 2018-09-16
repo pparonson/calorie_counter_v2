@@ -8,6 +8,7 @@ import {
   , descriptionInputMsg
   , caloriestInputMsg
   , saveFormMsg
+  , deleteRecordMsg
 } from "./update"
 
 const {
@@ -33,7 +34,7 @@ function headerRow(_className) {
   return tr({className: _className}, [
     cell(th, "pa2 bg-gray white", "Description")
     , cell(th, "pa2 bg-gray white", "Calories")
-    , cell(th, "")
+    , cell(th, "pa2 bg-gray white", "")
   ])
 }
 
@@ -51,30 +52,39 @@ function totalRow(_className, _meals) {
   return tr({className: _className}, [
     cell(td, "pa2 tr bg-gray white", "TOTAL")
     , cell(td, "pa2 tr bg-gray white", total)
-    , cell(td, "", "")
+    , cell(td, "pa2 bg-gray white", "")
   ])
 }
 
-function _table(_className, _meals) {
+function _table(_dispatch, _className, _meals) {
+  if (_meals.length === 0) {
+    return div({className: "mv2 i black-50"}, "No meals to display...");
+  }
   return table({className: _className}, [
     tableHead("")
-    , tableBody("", _meals)
+    , tableBody(_dispatch, "", _meals)
   ])
 }
 
-function tableBody(_className, _meals) {
+function tableBody(_dispatch, _className, _meals) {
   // rows is an array of table row elements
-  const rows = R.map(R.partial(tableRow, ["stripe-dark"]), _meals)
+  const rows = R.map(R.partial(tableRow, [_dispatch, "stripe-dark"]), _meals)
   return tbody({className: _className}, [
     ...rows
     , totalRow("stripe-dark", _meals)
   ])
 }
 
-function tableRow(_className, _model) {
+function tableRow(_dispatch, _className, _meal) {
   return tr({className: _className}, [
-    cell(td, "pa2", _model.description)
-    , cell(td, "pa2 tr", _model.calories)
+    cell(td, "pa2", _meal.description)
+    , cell(td, "pa2 tr", _meal.calories)
+    , cell(td, "pa2 tr", [
+      i({
+        className: "ph1 fas fa-trash pointer"
+        , onclick: () => _dispatch(deleteRecordMsg(_meal.id))
+      })
+    ])
   ])
 }
 
@@ -148,7 +158,7 @@ function view(_dispatch, _model) {
   return div({className: "mw6 center"}, [
     h1({className: "f2 pv2 bb"}, "Calorie Counter")
     , formView(_dispatch, _model)
-    , _table("w-100 collapse mv2", _model.meals)
+    , _table(_dispatch, "w-100 collapse mv2", _model.meals)
     // creates pre-tag for pre-formated text
     , pre( JSON.stringify(_model, null, 2) )
   ])

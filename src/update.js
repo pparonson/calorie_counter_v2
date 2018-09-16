@@ -5,7 +5,17 @@ const MSGS = {
   , DESCRIPTION_INPUT: "DESCRIPTION_INPUT"
   , CALORIES_INPUT: "CALORIES_INPUT"
   , SAVE_FORM: "SAVE_FORM"
+  , DELETE_RECORD: "DELETE_RECORD"
 }
+
+export function deleteRecordMsg(_id) {
+  return {
+    type: MSGS.DELETE_RECORD
+    , id: _id
+  }
+}
+
+export const saveFormMsg = {type: MSGS.SAVE_FORM}
 
 export function descriptionInputMsg(_description) {
   return {
@@ -27,8 +37,6 @@ export function showFormMsg(_showForm) {
     , showForm: _showForm
   }
 }
-
-export const saveFormMsg = {type: MSGS.SAVE_FORM}
 
 function update(_msg, _model) {
   if (_msg.type === MSGS.SHOW_FORM) {
@@ -60,7 +68,16 @@ function update(_msg, _model) {
   if (_msg.type === MSGS.SAVE_FORM) {
     return add(_msg, _model)
   }
-
+  if (_msg.type === MSGS.DELETE_RECORD) {
+    const {id} = _msg
+    // return new array with selected meal filtered out
+    const meals = R.filter(meal => meal.id !== id, _model.meals)
+    return {
+      ..._model
+      , meals
+    }
+  }
+  // default case
   return _model
 }
 

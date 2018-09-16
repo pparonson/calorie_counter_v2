@@ -10,14 +10,29 @@ import {
   , saveFormMsg
 } from "./update"
 
-const {pre, div, h1, button, form, label, input, td, tr, tbody, table, thead, th} = hh(h)
+const {
+  pre
+  , div
+  , h1
+  , button
+  , form
+  , label
+  , input
+  , td
+  , tr
+  , tbody
+  , table
+  , thead
+  , th
+  , i
+} = hh(h)
 
 // Plan / fns to createElement:
 // cell, mealRow, headerRow, totalRow, mealBody, mealHeader, mealsTable
 function headerRow(_className) {
   return tr({className: _className}, [
-    cell(th, "pa2", "Description")
-    , cell(th, "pa2", "Calories")
+    cell(th, "pa2 bg-gray white", "Description")
+    , cell(th, "pa2 bg-gray white", "Calories")
     , cell(th, "")
   ])
 }
@@ -34,8 +49,8 @@ function totalRow(_className, _meals) {
     , getCalories
   )(_meals)
   return tr({className: _className}, [
-    cell(td, "pa2 tr", "TOTAL")
-    , cell(td, "pa2 tr", total)
+    cell(td, "pa2 tr bg-gray white", "TOTAL")
+    , cell(td, "pa2 bg-gray white", total)
     , cell(td, "", "")
   ])
 }

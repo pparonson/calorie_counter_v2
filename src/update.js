@@ -6,6 +6,14 @@ const MSGS = {
   , CALORIES_INPUT: "CALORIES_INPUT"
   , SAVE_FORM: "SAVE_FORM"
   , DELETE_RECORD: "DELETE_RECORD"
+  , EDIT_RECORD: "EDIT_RECORD"
+}
+
+export function editRecordMsg(_id) {
+  return {
+    type: MSGS.EDIT_RECORD
+    , editId: _id
+  }
 }
 
 export function deleteRecordMsg(_id) {
@@ -66,7 +74,10 @@ function update(_msg, _model) {
     }
   }
   if (_msg.type === MSGS.SAVE_FORM) {
-    return add(_msg, _model)
+    // return add(_msg, _model)
+    const {editId} = _model
+    const updatedModel = editId !== null ? edit(_msg, _model) : add(_msg, _model)
+    return updatedModel
   }
   if (_msg.type === MSGS.DELETE_RECORD) {
     const {id} = _msg
@@ -75,6 +86,21 @@ function update(_msg, _model) {
     return {
       ..._model
       , meals
+    }
+  }
+  if (_msg.type === MSGS.EDIT_RECORD) {
+    const {editId} = _msg
+    // get selected meal record
+    const meal = R.find(meal => meal.id === editId, _model.meals)
+
+    const {description, calories} = meal
+
+    return {
+      ..._model
+      , description
+      , calories
+      , editId
+      , showForm: true
     }
   }
   // default case
@@ -101,6 +127,30 @@ function add(_msg, _model) {
     , description: ""
     , calories: 0
     , showForm: false
+  }
+}
+
+function edit(_msg, _model) {
+  const {editId, description, calories} = _model
+  const meals = R.map(meal => {
+    // replace with find fn
+    if (meal.id === editId) {
+      return {
+        ...meal
+        , description
+        , calories
+      }
+    } else {
+      return meal
+    }
+  }, _model.meals)
+  return {
+    ..._model
+    , meals
+    , description: ""
+    , calories: 0
+    , showForm: false
+    , editId: null
   }
 }
 

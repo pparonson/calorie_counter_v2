@@ -9,6 +9,7 @@ import {
   , caloriestInputMsg
   , saveFormMsg
   , deleteRecordMsg
+  , editRecordMsg
 } from "./update"
 
 const {
@@ -81,7 +82,11 @@ function tableRow(_dispatch, _className, _meal) {
     , cell(td, "pa2 tr", _meal.calories)
     , cell(td, "pa2 tr", [
       i({
-        className: "ph1 fas fa-trash pointer"
+        className: "ph1 fas fa-pen dim pointer"
+        , onclick: () => _dispatch(editRecordMsg(_meal.id))
+      })
+      , i({
+        className: "ph1 fas fa-trash dim pointer"
         , onclick: () => _dispatch(deleteRecordMsg(_meal.id))
       })
     ])

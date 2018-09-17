@@ -7,6 +7,7 @@ const initModel = {
   // options to handle saving a newly created or edited record(s)
   // , editId: 1
   , nextId: 4
+  , editId: null
   , meals: [
     {id: 1, description: "Breakfast", calories: 460}
     , {id: 2, description: "lunch", calories: 575}

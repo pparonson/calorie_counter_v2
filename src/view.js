@@ -165,7 +165,7 @@ function view(_dispatch, _model) {
     , formView(_dispatch, _model)
     , _table(_dispatch, "w-100 collapse mv2", _model.meals)
     // creates pre-tag for pre-formated text
-    , pre( JSON.stringify(_model, null, 2) )
+    // , pre( JSON.stringify(_model, null, 2) )
   ])
 }
 
